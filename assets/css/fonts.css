@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'manrope-v15-latin-200';
+    src: url("/fonts/manrope-v15-latin-200.woff2") format("woff2");
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'manrope-v15-latin-300';
+    src: url("/fonts/manrope-v15-latin-300.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'manrope-v15-latin-500';
+    src: url("/fonts/manrope-v15-latin-500.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'manrope-v15-latin-regular';
+    src: url("/fonts/manrope-v15-latin-regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Vercetti-Regular';
+    src: url("/fonts/Vercetti-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
