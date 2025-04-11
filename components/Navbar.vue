@@ -15,25 +15,60 @@
         </div>
       </div>
   
-      <!-- Dropdown Menu -->
-      <div v-if="menuOpen" class="dropdown-menu">
-        <NuxtLink to="/accommodations" class="dropdown-item">Accommodations</NuxtLink>
-        <NuxtLink to="/activities" class="dropdown-item">Activities</NuxtLink>
-        <NuxtLink to="/book" class="dropdown-item">Book</NuxtLink>
+      <!-- Full-Screen Overlay Menu -->
+      <div ref="overlay" class="overlay-menu" v-show="menuOpen">
+        <div class="overlay-left">
+          <!-- Placeholder for future images -->
+        </div>
+        <div class="overlay-right">
+          <NuxtLink to="/accommodations" class="overlay-item" @click="closeMenu">Accommodations</NuxtLink>
+          <NuxtLink to="/activities" class="overlay-item" @click="closeMenu">Activities</NuxtLink>
+          <NuxtLink to="/book" class="overlay-item" @click="closeMenu">Book</NuxtLink>
+        </div>
       </div>
     </nav>
   </template>
   
   <script setup>
-  import { ref } from 'vue'
+  import { ref, watch, onMounted } from 'vue'
+  import gsap from 'gsap'
   
   const menuOpen = ref(false)
+  const overlay = ref(null)
+  
   const toggleMenu = () => {
     menuOpen.value = !menuOpen.value
   }
+  
+  const closeMenu = () => {
+    menuOpen.value = false
+  }
+  
+  watch(menuOpen, (newVal) => {
+    if (newVal) {
+      // Ensure overlay is visible before animation
+      gsap.set(overlay.value, { y: '-100%', display: 'flex' })
+      gsap.to(overlay.value, {
+        y: '0%',
+        duration: 0.8,
+        ease: 'power3.out'
+      })
+    } else {
+      gsap.to(overlay.value, {
+        y: '-100%',
+        duration: 0.6,
+        ease: 'power2.in',
+        onComplete: () => {
+          // Hide overlay after animation completes
+          overlay.value.style.display = 'none'
+        }
+      })
+    }
+  })
   </script>
   
   <style scoped>
+  /* Navbar styles */
   .navbar {
     position: fixed;
     top: 0;
@@ -76,33 +111,56 @@
     background: none;
     border: none;
     cursor: pointer;
+    padding: 8px;
+    z-index: 1001; /* Ensure it's above overlay */
   }
   
   .menu-toggle img {
     width: 24px;
     height: 24px;
+    transition: opacity 0.3s ease;
   }
   
-  .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    right: 2rem;
-    background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 0.5rem;
+  /* Overlay menu styles */
+  .overlay-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #171716;
+    display: none; /* Start hidden, GSAP will handle display */
+    z-index: 999;
+    overflow: hidden;
+    transform: translateY(-100%); /* Start off-screen */
+  }
+  
+  .overlay-left {
+    width: 33.33%;
+    background-color: #222; /* Placeholder background */
+  }
+  
+  .overlay-right {
+    width: 66.66%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
   }
   
-  .dropdown-item {
-    padding: 0.75rem 1rem;
-    color: #333;
+  .overlay-item {
+    color: #fff;
+    font-size: 2rem;
     text-decoration: none;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    opacity: 0; /* Start invisible for animation */
+    transform: translateY(20px); /* Start slightly down */
   }
   
-  .dropdown-item:hover {
-    background-color: #f0f0f0;
+  .overlay-item:hover {
+    text-decoration: underline;
   }
   </style>
   
