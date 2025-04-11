@@ -291,7 +291,7 @@ watch(menuOpen, (isOpen) => {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.8rem;
+  gap: 1.5rem;
   margin-bottom: auto;
 }
 
