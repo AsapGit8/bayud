@@ -209,17 +209,19 @@ watch(menuOpen, (isOpen) => {
 }
 
 .book-button {
-  background-color: #171716;
-  color: white;
+  background-color: transparent;
+  color: #333;
+  border: 1px solid #333;
   padding: 0.5rem 1.25rem;
   border-radius: 4px;
   text-decoration: none;
   font-weight: 500;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .book-button:hover {
   background-color: #333;
+  color: white;
 }
 
 .menu-toggle {
