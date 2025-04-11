@@ -156,7 +156,7 @@ watch(menuOpen, (isOpen) => {
     gsap.to(overlay.value, {
       y: '0%',
       duration: 1.4,
-      ease: 'sine.inOut',
+      ease: 'expo.inOut',
       onComplete: () => {
         isAnimating.value = false
       }
@@ -165,7 +165,7 @@ watch(menuOpen, (isOpen) => {
     gsap.to(overlay.value, {
       y: '-100%',
       duration: 1.2,
-      ease: 'sine.inOut',
+      ease: 'expo.inOut',
       onComplete: () => {
         overlayVisible.value = false
         isAnimating.value = false
