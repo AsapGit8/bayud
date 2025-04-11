@@ -16,7 +16,7 @@
       </div>
   
       <!-- Full-Screen Overlay Menu -->
-      <div ref="overlay" class="overlay-menu" v-show="menuOpen">
+      <div ref="overlay" class="overlay-menu" :class="{ 'menu-open': menuOpen }">
         <div class="overlay-left">
           <!-- Placeholder for future images -->
         </div>
@@ -44,24 +44,25 @@
     menuOpen.value = false
   }
   
+  onMounted(() => {
+    // Initialize the overlay position
+    gsap.set(overlay.value, { y: '-100%' })
+  })
+  
   watch(menuOpen, (newVal) => {
     if (newVal) {
-      // Ensure overlay is visible before animation
-      gsap.set(overlay.value, { y: '-100%', display: 'flex' })
+      // Open animation
       gsap.to(overlay.value, {
         y: '0%',
         duration: 0.8,
         ease: 'power3.out'
       })
     } else {
+      // Close animation
       gsap.to(overlay.value, {
         y: '-100%',
         duration: 0.6,
-        ease: 'power2.in',
-        onComplete: () => {
-          // Hide overlay after animation completes
-          overlay.value.style.display = 'none'
-        }
+        ease: 'power2.in'
       })
     }
   })
@@ -118,7 +119,6 @@
   .menu-toggle img {
     width: 24px;
     height: 24px;
-    transition: opacity 0.3s ease;
   }
   
   /* Overlay menu styles */
@@ -129,10 +129,10 @@
     width: 100%;
     height: 100%;
     background-color: #171716;
-    display: none; /* Start hidden, GSAP will handle display */
+    display: flex;
     z-index: 999;
     overflow: hidden;
-    transform: translateY(-100%); /* Start off-screen */
+    transform: translateY(-100%);
   }
   
   .overlay-left {
@@ -155,8 +155,6 @@
     text-decoration: none;
     margin: 1rem 0;
     padding: 0.5rem 1rem;
-    opacity: 0; /* Start invisible for animation */
-    transform: translateY(20px); /* Start slightly down */
   }
   
   .overlay-item:hover {
