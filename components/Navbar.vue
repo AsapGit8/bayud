@@ -198,7 +198,7 @@ watch(menuOpen, (isOpen) => {
 .navbar-brand a {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
+  color: #333333;
   text-decoration: none;
 }
 
@@ -210,8 +210,8 @@ watch(menuOpen, (isOpen) => {
 
 .book-button {
   background-color: transparent;
-  color: #333;
-  border: 1px solid #333;
+  color: #333333;
+  border: 1px solid #333333;
   padding: 0.5rem 1.25rem;
   border-radius: 4px;
   text-decoration: none;
@@ -220,8 +220,8 @@ watch(menuOpen, (isOpen) => {
 }
 
 .book-button:hover {
-  background-color: #333;
-  color: white;
+  background-color: #333333;
+  color: #ffffff;
 }
 
 .menu-toggle {
@@ -261,7 +261,7 @@ watch(menuOpen, (isOpen) => {
 
 .overlay-left {
   width: 40%;
-  background-color: #222;
+  background-color: #222222;
 }
 
 .overlay-content {
@@ -280,8 +280,8 @@ watch(menuOpen, (isOpen) => {
 }
 
 .overlay-item {
-  color: white;
-  font-size: 2.5rem;
+  color: #ffffff;
+  font-size: 2rem;
   font-weight: 500;
   text-decoration: none;
   display: inline-block;
@@ -293,26 +293,27 @@ watch(menuOpen, (isOpen) => {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 1px !important;
+  height: 1px;
   width: 0;
   display: block;
-  will-change: width;
-  background-color: rgba(255, 255, 255, 0.7) !important;
+  background-color: #ffffff;
+  opacity: 0.7;
 }
 
 .contact-info {
   margin-top: auto;
-  color: white;
+  color: #ffffff;
 }
 
 .contact-title {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
+  opacity: 0.9;
 }
 
 .contact-email {
-  color: rgba(170, 170, 170, 0.9);
+  color: #aaaaaa;
   text-decoration: none;
   font-size: 1rem;
   position: relative;
@@ -322,21 +323,22 @@ watch(menuOpen, (isOpen) => {
 }
 
 .contact-email:hover {
-  color: rgba(200, 200, 200, 0.9);
+  color: #c8c8c8;
 }
 
 .contact-email .underline {
-  background-color: rgba(170, 170, 170, 0.7) !important;
+  background-color: #aaaaaa;
+  opacity: 0.7;
 }
 
 .credits {
-  color: rgba(102, 102, 102, 0.9);
+  color: #666666;
   font-size: 0.875rem;
   margin-top: 2rem;
 }
 
 .credits a {
-  color: rgba(136, 136, 136, 0.9);
+  color: #888888;
   text-decoration: none;
   position: relative;
   display: inline-block;
@@ -345,11 +347,12 @@ watch(menuOpen, (isOpen) => {
 }
 
 .credits a:hover {
-  color: rgba(170, 170, 170, 0.9);
+  color: #aaaaaa;
 }
 
 .credits a .underline {
-  background-color: rgba(136, 136, 136, 0.7) !important;
+  background-color: #888888;
+  opacity: 0.7;
 }
 
 /* Responsive adjustments */
