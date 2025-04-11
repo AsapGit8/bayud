@@ -39,7 +39,6 @@
         
         <div class="contact-section">
           <div class="social-links">
-            <div class="social-title">Follow Us</div>
             <div class="social-icons">
               <a href="https://www.instagram.com/bayudsiargao/?hl=en" target="_blank" rel="noopener" class="social-icon">
                 <img src="/icons/InstagramIcon.svg" alt="Instagram" />
@@ -51,7 +50,6 @@
           </div>
           
           <div class="contact-info">
-            <div class="contact-title">Contact us</div>
             <a href="mailto:bayudboutiqueresort@gmail.com" class="contact-email">
               bayudboutiqueresort@gmail.com
               <span class="underline"></span>
@@ -210,8 +208,9 @@ watch(menuOpen, (isOpen) => {
 }
 
 .navbar-brand a {
+  font-family: 'Vercetti', sans-serif;
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 400;
   color: #333333;
   text-decoration: none;
 }
@@ -228,8 +227,10 @@ watch(menuOpen, (isOpen) => {
   border: 1px solid #333333;
   padding: 0.5rem 1.25rem;
   border-radius: 4px;
+  font-family: 'Vercetti', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
   text-decoration: none;
-  font-weight: 500;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -274,13 +275,13 @@ watch(menuOpen, (isOpen) => {
 }
 
 .overlay-left {
-  width: 40%;
+  width: 45%;
   background-color: #222222;
 }
 
 .overlay-content {
-  width: 60%;
-  padding: 10rem 4rem 4rem 4rem;
+  width: 55%;
+  padding: 10rem 4rem 4rem 8rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -296,8 +297,9 @@ watch(menuOpen, (isOpen) => {
 
 .overlay-item {
   color: #ffffff;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 300;
   font-size: 2rem;
-  font-weight: 500;
   text-decoration: none;
   display: inline-block;
   position: relative;
@@ -319,19 +321,12 @@ watch(menuOpen, (isOpen) => {
 }
 
 .social-links {
-  margin-bottom: 2rem;
-}
-
-.social-title {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  color: #ffffff;
-  opacity: 0.9;
+  margin-bottom: 0.5rem;
 }
 
 .social-icons {
   display: flex;
-  gap: 1.5rem;
+  gap: 0.5rem;
 }
 
 .social-icon {
@@ -352,16 +347,11 @@ watch(menuOpen, (isOpen) => {
   color: #ffffff;
 }
 
-.contact-title {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-  color: #ffffff;
-  opacity: 0.9;
-}
-
 .contact-email {
   color: #aaaaaa;
   text-decoration: none;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
   font-size: 1rem;
   position: relative;
   display: inline-block;
@@ -380,8 +370,10 @@ watch(menuOpen, (isOpen) => {
 
 .credits {
   color: #666666;
-  font-size: 0.875rem;
-  margin-top: 2rem;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: 0.750rem;
+  margin-top: 1rem;
 }
 
 .credits a {
