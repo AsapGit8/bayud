@@ -27,8 +27,8 @@
             <span>Book</span>
             <span class="underline"></span>
           </NuxtLink>
-          <NuxtLink to="/activities" class="overlay-item" @click="closeMenu">
-            <span>Activities</span>
+          <NuxtLink to="/experiences" class="overlay-item" @click="closeMenu">
+            <span>Experiences</span>
             <span class="underline"></span>
           </NuxtLink>
           <NuxtLink to="/accommodations" class="overlay-item" @click="closeMenu">
@@ -37,12 +37,26 @@
           </NuxtLink>
         </div>
         
-        <div class="contact-info">
-          <div class="contact-title">Contact us</div>
-          <a href="mailto:bayudboutiqueresort@gmail.com" class="contact-email">
-            bayudboutiqueresort@gmail.com
-            <span class="underline"></span>
-          </a>
+        <div class="contact-section">
+          <div class="social-links">
+            <div class="social-title">Follow Us</div>
+            <div class="social-icons">
+              <a href="https://www.instagram.com/bayudsiargao/?hl=en" target="_blank" rel="noopener" class="social-icon">
+                <img src="/icons/InstagramIcon.svg" alt="Instagram" />
+              </a>
+              <a href="https://www.facebook.com/bayudboutiqueresort/" target="_blank" rel="noopener" class="social-icon">
+                <img src="/icons/FacebookIcon.svg" alt="Facebook" />
+              </a>
+            </div>
+          </div>
+          
+          <div class="contact-info">
+            <div class="contact-title">Contact us</div>
+            <a href="mailto:bayudboutiqueresort@gmail.com" class="contact-email">
+              bayudboutiqueresort@gmail.com
+              <span class="underline"></span>
+            </a>
+          </div>
         </div>
         
         <div class="credits">
@@ -97,7 +111,7 @@ onMounted(() => {
     y: '-100%'
   })
   
-  // Create hover animations for menu items
+  // Create hover animations for menu items (excluding social icons)
   const menuItems = document.querySelectorAll('.overlay-item, .contact-email, .credits a')
   
   menuItems.forEach(item => {
@@ -254,7 +268,7 @@ watch(menuOpen, (isOpen) => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #171716;
+  background-color: #2b3530;
   display: flex;
   z-index: 999;
 }
@@ -266,7 +280,7 @@ watch(menuOpen, (isOpen) => {
 
 .overlay-content {
   width: 60%;
-  padding: 4rem;
+  padding: 10rem 4rem 4rem 4rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -276,7 +290,8 @@ watch(menuOpen, (isOpen) => {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.5rem;
+  gap: 1.8rem;
+  margin-bottom: auto;
 }
 
 .overlay-item {
@@ -286,7 +301,6 @@ watch(menuOpen, (isOpen) => {
   text-decoration: none;
   display: inline-block;
   position: relative;
-  padding-bottom: 5px;
 }
 
 .underline {
@@ -300,8 +314,41 @@ watch(menuOpen, (isOpen) => {
   opacity: 0.7;
 }
 
-.contact-info {
+.contact-section {
   margin-top: auto;
+}
+
+.social-links {
+  margin-bottom: 2rem;
+}
+
+.social-title {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.social-icon {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.social-icon img {
+  width: 24px;
+  height: 24px;
+}
+
+.social-icon:hover {
+  transform: scale(1.1);
+}
+
+.contact-info {
   color: #ffffff;
 }
 
@@ -367,7 +414,7 @@ watch(menuOpen, (isOpen) => {
   
   .overlay-content {
     width: 100%;
-    padding: 2rem;
+    padding: 10rem 2rem 2rem 2rem;
   }
   
   .overlay-item {
