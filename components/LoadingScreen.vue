@@ -4,8 +4,8 @@
       <div v-show="slideshowActive" class="slideshow">
         <img :src="currentImage" alt="slideshow" />
       </div>
+      <p v-show="captionVisible" ref="caption" class="caption">Experience – Bayud Siargao</p>
     </div>
-    <p v-show="captionVisible" ref="caption" class="caption">Experience – Bayud Siargao</p>
   </div>
 </template>
 
@@ -108,19 +108,19 @@ const finishSequence = () => {
     ease: "power2.inOut",
   })
   
-  // Collapse height smoothly
-  tl.to(frame.value, {
-    duration: 1,
-    height: '4px',
-    ease: 'power2.inOut',
-  }, "<=0.2")
-  
   // Fade out caption
   tl.to(caption.value, {
     duration: 0.5,
     opacity: 0,
     ease: 'power2.inOut'
   }, "<")
+  
+  // Collapse height smoothly
+  tl.to(frame.value, {
+    duration: 1,
+    height: '4px',
+    ease: 'power2.inOut',
+  }, "<=0.2")
   
   // Collapse width to center
   tl.to(frame.value, {
@@ -164,7 +164,9 @@ const finishSequence = () => {
 .slideshow {
   width: 100%;
   height: 100%;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .slideshow img {
@@ -176,10 +178,13 @@ const finishSequence = () => {
 }
 
 .caption {
-  color: #000;
+  color: white;
   font-family: sans-serif;
   font-size: 1.2rem;
-  margin-top: 16px;
   font-weight: 500;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 0 10px rgba(0,0,0,0.5);
+  mix-blend-mode: difference;
 }
 </style>
