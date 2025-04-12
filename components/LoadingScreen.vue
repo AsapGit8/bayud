@@ -57,7 +57,7 @@ onMounted(() => {
   
   // Expand height based on device
   tl.to(frame.value, {
-    duration: 1.8,
+    duration: 1.6,
     height: frameHeight,
     ease: 'expo.inOut',
     onComplete: () => {
