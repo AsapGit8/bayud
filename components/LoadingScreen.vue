@@ -4,7 +4,6 @@
       <div v-show="slideshowActive" class="slideshow">
         <img :src="currentImage" alt="slideshow" />
       </div>
-      <p v-show="captionVisible" ref="caption" class="caption">Experience – Bayud Siargao</p>
     </div>
   </div>
 </template>
@@ -17,9 +16,7 @@ import gsap from 'gsap'
 const router = useRouter()
 const done = ref(false)
 const frame = ref(null)
-const caption = ref(null)
 const slideshowActive = ref(false)
-const captionVisible = ref(false)
 const currentImage = ref('')
 const images = Array.from({ length: 10 }, (_, i) => `/loading-images/img${i + 1}.jpg`)
 let interval = null
@@ -54,17 +51,16 @@ onMounted(() => {
   tl.to(frame.value, {
     duration: 1,
     width: frameWidth,
-    ease: 'power2.inOut',
+    ease: 'expo.inOut',
   })
   
   // Expand height based on device
   tl.to(frame.value, {
     duration: 1,
     height: frameHeight,
-    ease: 'power2.inOut',
+    ease: 'expo.inOut',
     onComplete: () => {
       slideshowActive.value = true
-      captionVisible.value = true
       startSlideshow()
     },
   })
@@ -85,12 +81,7 @@ const startSlideshow = () => {
     if (index >= images.length) {
       // Once last image is shown
       clearInterval(interval)
-      
-      // Hold on last image for a second
-      setTimeout(() => {
-        if (!done.value) finishSequence()
-      }, 1000)
-      
+      skip()
       return
     }
     
@@ -101,32 +92,11 @@ const startSlideshow = () => {
 const finishSequence = () => {
   const tl = gsap.timeline()
   
-  // Hide slideshow but keep frame
-  tl.to(".slideshow", {
-    duration: 0.4,
-    opacity: 0,
-    ease: "power2.inOut",
-  })
-  
-  // Fade out caption
-  tl.to(caption.value, {
-    duration: 0.5,
-    opacity: 0,
-    ease: 'power2.inOut'
-  }, "<")
-  
-  // Collapse height smoothly
+  // Collapse from top to bottom
   tl.to(frame.value, {
-    duration: 1,
-    height: '4px',
-    ease: 'power2.inOut',
-  }, "<=0.2")
-  
-  // Collapse width to center
-  tl.to(frame.value, {
-    duration: 1,
-    width: 0,
-    ease: 'power2.inOut',
+    y: '100%',
+    duration: 1.2,
+    ease: 'expo.inOut',
     onComplete: () => {
       done.value = true
       router.push('/')
@@ -174,17 +144,5 @@ const finishSequence = () => {
   height: 100%;
   object-fit: cover;
   pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-
-.caption {
-  color: white;
-  font-family: sans-serif;
-  font-size: 1.2rem;
-  font-weight: 500;
-  position: relative;
-  z-index: 2;
-  text-shadow: 0 0 10px rgba(0,0,0,0.5);
-  mix-blend-mode: difference;
 }
 </style>
