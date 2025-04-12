@@ -39,12 +39,13 @@ onMounted(() => {
   const frameWidth = isMobile ? '80%' : '30%'
   const frameHeight = isMobile ? '50vh' : '70vh'
   
-  // Initial collapsed horizontal line
+  // Initial collapsed horizontal line with black background
   tl.set(frame.value, {
     width: 0,
     height: '4px',
-    background: '#000',
+    background: '#2b3530', // Black background for the start
     overflow: 'hidden',
+    transformOrigin: 'top center'
   })
   
   // Expand width based on device
@@ -92,11 +93,18 @@ const startSlideshow = () => {
 const finishSequence = () => {
   const tl = gsap.timeline()
   
-  // Collapse from top to bottom
+  // Remove the black background before collapsing
   tl.to(frame.value, {
-    y: '100%',
+    background: 'transparent',
+    duration: 0.1
+  })
+  
+  // Collapse height from top to bottom
+  tl.to(frame.value, {
+    height: 0,
     duration: 1.2,
     ease: 'expo.inOut',
+    transformOrigin: 'top',
     onComplete: () => {
       done.value = true
       router.push('/')
@@ -122,7 +130,6 @@ const finishSequence = () => {
 }
 
 .frame {
-  background: #000;
   display: flex;
   flex-direction: column;
   align-items: center;
