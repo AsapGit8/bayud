@@ -37,13 +37,13 @@ onMounted(() => {
   
   // Get the appropriate frame dimensions based on device
   const frameWidth = isMobile ? '80%' : '30%'
-  const frameHeight = isMobile ? '50vh' : '70vh'
+  const frameHeight = isMobile ? '60vh' : '80vh'
   
-  // Initial collapsed horizontal line with black background
+  // Initial collapsed horizontal line
   tl.set(frame.value, {
     width: 0,
     height: '4px',
-    background: '#2b3530', // Black background for the start
+    background: '#2b3530', // Green background for the start
     overflow: 'hidden',
     transformOrigin: 'top center'
   })
@@ -57,7 +57,7 @@ onMounted(() => {
   
   // Expand height based on device
   tl.to(frame.value, {
-    duration: 1,
+    duration: 1.8,
     height: frameHeight,
     ease: 'expo.inOut',
     onComplete: () => {
@@ -87,29 +87,29 @@ const startSlideshow = () => {
     }
     
     currentImage.value = images[index]
-  }, 400) // 0.4 seconds per image
+  }, 500) // 0.5 seconds per image
 }
 
 const finishSequence = () => {
   const tl = gsap.timeline()
   
-  // Remove the black background before collapsing
-  tl.to(frame.value, {
-    background: 'transparent',
-    duration: 0.1
+  // First, animate the content (image) using clip-path from top to bottom
+  tl.to(frame.value.querySelector('.slideshow'), {
+    clipPath: 'inset(100% 0% 0% 0%)',
+    duration: 2,
+    ease: 'expo.inOut',
   })
   
-  // Collapse height from top to bottom
+  // Then collapse the frame itself
   tl.to(frame.value, {
     height: 0,
-    duration: 1.2,
+    duration: 1.4,
     ease: 'expo.inOut',
-    transformOrigin: 'top',
     onComplete: () => {
       done.value = true
       router.push('/')
     },
-  })
+  }, '-=0.6') // Overlap the animations slightly
 }
 </script>
 
@@ -144,6 +144,7 @@ const finishSequence = () => {
   position: absolute;
   top: 0;
   left: 0;
+  clip-path: inset(0% 0% 0% 0%); /* Initial state - fully visible */
 }
 
 .slideshow img {
