@@ -35,6 +35,13 @@ const skip = () => {
 onMounted(() => {
   const tl = gsap.timeline()
   
+  // Check if mobile
+  const isMobile = window.innerWidth < 768
+  
+  // Get the appropriate frame dimensions based on device
+  const frameWidth = isMobile ? '80%' : '30%'
+  const frameHeight = isMobile ? '50vh' : '70vh'
+  
   // Initial collapsed horizontal line
   tl.set(frame.value, {
     width: 0,
@@ -43,17 +50,17 @@ onMounted(() => {
     overflow: 'hidden',
   })
   
-  // Expand width to 30%
+  // Expand width based on device
   tl.to(frame.value, {
     duration: 1,
-    width: '30%',
+    width: frameWidth,
     ease: 'power2.inOut',
   })
   
-  // Expand height to 70%
+  // Expand height based on device
   tl.to(frame.value, {
     duration: 1,
-    height: '70vh',
+    height: frameHeight,
     ease: 'power2.inOut',
     onComplete: () => {
       slideshowActive.value = true
