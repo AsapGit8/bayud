@@ -2,7 +2,16 @@
   <div v-if="!done" class="preloader" @click="skip">
     <div ref="frame" class="frame">
       <div v-show="slideshowActive" class="slideshow">
-        <img :src="currentImage" alt="slideshow" />
+        <!-- Main image container with clip-path -->
+        <div class="image-container">
+          <img :src="currentImage" alt="slideshow" />
+        </div>
+        
+        <!-- Experience text overlay -->
+        <div class="experience-text">
+          <h2 class="title">experience</h2>
+          <h1 class="location">Bayud Siargao</h1>
+        </div>
       </div>
     </div>
   </div>
@@ -63,6 +72,9 @@ onMounted(() => {
     onComplete: () => {
       slideshowActive.value = true
       startSlideshow()
+      
+      // Animate the text once slideshow is active
+      animateText()
     },
   })
   
@@ -72,9 +84,32 @@ onMounted(() => {
   }, 8000)
 })
 
+const animateText = () => {
+  const textElements = frame.value.querySelectorAll('.experience-text h1, .experience-text h2')
+  
+  gsap.fromTo(textElements, {
+    y: 100,
+    opacity: 0
+  }, {
+    y: 0,
+    opacity: 1,
+    stagger: 0.2,
+    duration: 1.2,
+    ease: 'power3.out'
+  })
+}
+
 const startSlideshow = () => {
   let index = 0
   currentImage.value = images[0]
+  
+  // Initial reveal animation - make image fully visible
+  const imageContainer = frame.value.querySelector('.image-container')
+  gsap.to(imageContainer, {
+    clipPath: 'inset(0% 0% 0% 0%)', // Fully visible
+    duration: 1.5,
+    ease: 'power3.inOut'
+  })
   
   interval = setInterval(() => {
     index++
@@ -86,19 +121,31 @@ const startSlideshow = () => {
       return
     }
     
+    // Just update the image source - no clip-path animation between images
     currentImage.value = images[index]
-  }, 500) // 0.5 seconds per image
+    
+  }, 800) // 0.8 seconds per image
 }
 
 const finishSequence = () => {
   const tl = gsap.timeline()
   
-  // First, animate the content (image) using clip-path from top to bottom
-  tl.to(frame.value.querySelector('.slideshow'), {
-    clipPath: 'inset(100% 0% 0% 0%)',
-    duration: 2,
-    ease: 'expo.inOut',
+  // Animate text out first
+  tl.to(frame.value.querySelectorAll('.experience-text h1, .experience-text h2'), {
+    y: -50,
+    opacity: 0,
+    stagger: 0.1,
+    duration: 0.6,
+    ease: 'power3.in'
   })
+  
+  // Animate the clip path to hide image from bottom to top
+  const imageContainer = frame.value.querySelector('.image-container')
+  tl.to(imageContainer, {
+    clipPath: 'inset(100% 0% 0% 0%)', // Hide from bottom
+    duration: 1.5,
+    ease: 'expo.inOut',
+  }, "-=0.3")
   
   // Then collapse the frame itself
   tl.to(frame.value, {
@@ -109,7 +156,7 @@ const finishSequence = () => {
       done.value = true
       router.push('/')
     },
-  }, '-=0.6') // Overlap the animations slightly
+  }, '-=0.8') // Overlap the animations slightly
 }
 </script>
 
@@ -144,7 +191,14 @@ const finishSequence = () => {
   position: absolute;
   top: 0;
   left: 0;
-  clip-path: inset(0% 0% 0% 0%); /* Initial state - fully visible */
+  overflow: hidden;
+}
+
+.image-container {
+  width: 100%;
+  height: 100%;
+  clip-path: inset(100% 0% 0% 0%); /* Initial state - not visible, hidden from top */
+  position: relative;
 }
 
 .slideshow img {
@@ -152,5 +206,51 @@ const finishSequence = () => {
   height: 100%;
   object-fit: cover;
   pointer-events: none;
+}
+
+.experience-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+  z-index: 3;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.experience-text .title {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 300;
+  font-size: 1.2rem;
+  margin: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.experience-text .location {
+  font-family: 'Vercetti', serif;
+  font-weight: 400;
+  font-size: 3rem;
+  margin: 0.2rem 0 0 0;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .experience-text {
+    padding: 1.5rem;
+  }
+  
+  .experience-text .title {
+    font-size: 1rem;
+  }
+  
+  .experience-text .location {
+    font-size: 2.2rem;
+  }
 }
 </style>
